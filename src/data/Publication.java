@@ -11,34 +11,46 @@ public class Publication {
     public int getYear() {
         return year;
     }
+
     public void setYear(int year) {
         this.year = year;
     }
+
     public String getTitle() {
         return title;
     }
+
     public void setTitle(String title) {
         this.title = title;
     }
+
     public String getPublisher() {
         return publisher;
     }
+
     public void setPublisher(String publisher) {
         this.publisher = publisher;
     }
 
-    public Publication(int year, String title, String publisher) {
-        this.year = year;
+    public Publication(String title, String publisher, int year) {
         this.title = title;
         this.publisher = publisher;
+        this.year = year;
     }
 
     @Override
     public String toString() {
-        return  "year=" + year +
-                ", title='" + title + '\'' +
-                ", publisher='" + publisher + '\'' +
-                '}';
+
+        StringBuilder print = new StringBuilder(32);
+
+        print.append(getTitle());
+        print.append("; ");
+        print.append(getPublisher());
+        print.append("; ");
+        print.append(getYear());
+        print.append("; ");
+
+        return print.toString();
     }
 
     @Override

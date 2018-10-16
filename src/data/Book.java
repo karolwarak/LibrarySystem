@@ -34,9 +34,8 @@ public class Book extends Publication {
     }
 
     // Konstruktory
-    public Book(String title, String author, int year, int pages, String publisher,
-                String isbn) {
-        super(year, title, publisher);
+    public Book(String title, String publisher, int year, String author, int pages, String isbn) {
+        super(title, publisher, year);
         this.setAuthor(author);
         this.setPages(pages);
         this.setIsbn(isbn);
@@ -44,11 +43,18 @@ public class Book extends Publication {
 
     @Override
     public String toString() {
-        return "Book{" +
-                "author='" + author + '\'' +
-                ", pages=" + pages +
-                ", isbn='" + isbn + '\'' +
-                ", " + super.toString();
+        StringBuilder print = new StringBuilder(32);
+
+        print.append(super.toString());
+
+        print.append(getAuthor());
+        print.append("; ");
+        print.append(getPages());
+        print.append("; ");
+        print.append(getIsbn());
+        print.append("; ");
+
+        return print.toString();
     }
 
     @Override

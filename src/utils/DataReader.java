@@ -26,20 +26,20 @@ public class DataReader {
     public Book readAndCreateBook() {
         System.out.println("Tytuł: ");
         String title = sc.nextLine();
-        System.out.println("Autor: ");
-        String author = sc.nextLine();
         System.out.println("Wydawnictwo: ");
         String publisher = sc.nextLine();
-        System.out.println("ISBN: ");
-        String isbn = sc.nextLine();
         System.out.println("Rok wydania: ");
         int releaseDate = sc.nextInt();
         sc.nextLine();
+        System.out.println("Autor: ");
+        String author = sc.nextLine();
         System.out.println("Ilość stron: ");
         int pages = sc.nextInt();
         sc.nextLine();
+        System.out.println("ISBN: ");
+        String isbn = sc.nextLine();
 
-        return new Book(title, author, releaseDate, pages, publisher, isbn);
+        return new Book(title, publisher, releaseDate, author, pages, isbn);
     }
 
     public Magazine readAndCreateMagazine() {
@@ -47,8 +47,6 @@ public class DataReader {
         String title = sc.nextLine();
         System.out.println("Wydawnictwo: ");
         String publisher = sc.nextLine();
-        System.out.println("Język: ");
-        String language = sc.nextLine();
         System.out.println("Rok wydania: ");
         int year = sc.nextInt();
         sc.nextLine();
@@ -58,8 +56,10 @@ public class DataReader {
         System.out.println("Dzień: ");
         int day = sc.nextInt();
         sc.nextLine();
+        System.out.println("Język: ");
+        String language = sc.nextLine();
 
-        return new Magazine(title, publisher, language, year, month, day);
+        return new Magazine(title, publisher, year, month, day, language);
     }
 
 }

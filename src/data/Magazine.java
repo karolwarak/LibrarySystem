@@ -11,36 +11,47 @@ public class Magazine extends Publication {
     public int getMonth() {
         return month;
     }
+
     public void setMonth(int month) {
         this.month = month;
     }
+
     public int getDay() {
         return day;
     }
+
     public void setDay(int day) {
         this.day = day;
     }
+
     public String getLanguage() {
         return language;
     }
+
     public void setLanguage(String language) {
         this.language = language;
     }
 
-    public Magazine(String title, String publisher, String language, int year, int month, int day) {
-        super(year, title, publisher);
-        setLanguage(language);
+    public Magazine(String title, String publisher, int year, int month, int day, String language) {
+        super(title, publisher, year);
         setMonth(month);
         setDay(day);
+        setLanguage(language);
     }
 
     @Override
     public String toString() {
-        return "Magazine{" +
-                "month=" + month +
-                ", day=" + day +
-                ", language='" + language + '\'' +
-                ", " + super.toString();
+        StringBuilder print = new StringBuilder(32);
+
+        print.append(super.toString());
+
+        print.append(getMonth());
+        print.append("; ");
+        print.append(getDay());
+        print.append("; ");
+        print.append(getLanguage());
+
+        return print.toString();
     }
 
     @Override
