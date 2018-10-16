@@ -26,7 +26,7 @@ public class Library {
         addPublication(magazine);
     }
 
-    public void addPublication(Publication publication) {
+    private void addPublication(Publication publication) {
         if (publicationsNumber < MAX_PUBLICATIONS) {
             publications[publicationsNumber] = publication;
             publicationsNumber++;
