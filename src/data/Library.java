@@ -27,38 +27,19 @@ public class Library {
     }
 
     private void addPublication(Publication publication) {
-        if (publicationsNumber < MAX_PUBLICATIONS) {
+        if (publicationsNumber == MAX_PUBLICATIONS) {
+            throw new ArrayIndexOutOfBoundsException("You reach max of publication which is = " + MAX_PUBLICATIONS);
+        }
             publications[publicationsNumber] = publication;
             publicationsNumber++;
-        } else {
-            System.out.println("Maksymalna liczba publikacji zostala osiagnieta");
-        }
     }
 
-
-    public void printBooks() {
-        int countBooks = 0;
-        for (int i = 0; i < publicationsNumber; i++) {
-            if (publications[i] instanceof Book) {
-                System.out.println(publications[i]);
-                countBooks++;
-            }
+    public String toString(){
+        StringBuilder builder = new StringBuilder();
+        for(int i=0; i<publicationsNumber; i++){
+            builder.append(publications[i]);
+            builder.append("\n");
         }
-        if(countBooks == 0){
-            System.out.println("Brak ksiazek w bibliotece");
-        }
-    }
-
-    public void printMagazines() {
-        int countMagazines = 0;
-        for (int i = 0; i < publicationsNumber; i++) {
-            if (publications[i] instanceof Magazine) {
-                System.out.println(publications[i]);
-                countMagazines++;
-            }
-        }
-        if(countMagazines == 0){
-            System.out.println("Brak magazynow w bibliotece");
-        }
+        return builder.toString();
     }
 }

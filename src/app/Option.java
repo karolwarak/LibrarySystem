@@ -1,5 +1,7 @@
 package app;
 
+import java.util.NoSuchElementException;
+
 public enum Option {
 
     EXIT(0, "Wyjście z programu"),
@@ -29,12 +31,13 @@ public enum Option {
         return value + " - " + description;
     }
 
-    public static Option createOptionFromInt(int option) {
-        if(option > 4){
-            System.out.println("Nie ma takiej opcji wychodze z programu");
-            return Option.values()[0];
-        } else {
-            return Option.values()[option];
+    public static Option createOptionFromInt(int option) throws NoSuchElementException {
+        Option result = null;
+            try {
+                result = Option.values()[option];
+        } catch(ArrayIndexOutOfBoundsException ex) {
+                throw new NoSuchElementException("Brak elementu o wskazanym ID");
         }
+        return result;
     }
 }
