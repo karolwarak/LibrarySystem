@@ -13,15 +13,11 @@ public class LibraryControl {
 
     // zmienna do komunikacji z użytkownikiem
     private DataReader dataReader;
-
-    // "biblioteka" przechowująca dane
     private Library library;
-    private LibraryUtils libraryUtils;
 
     public LibraryControl() {
         dataReader = new DataReader();
         library = new Library();
-        libraryUtils = new LibraryUtils();
     }
 
     /*
@@ -48,9 +44,9 @@ public class LibraryControl {
                         break;
                     case EXIT: //nigdy nie zostanie wykonany
                 }
-            } catch(InputMismatchException e){
+            } catch (InputMismatchException e) {
                 System.out.println("Wprowadzono niepoprawne dane, publikacji nie dodano");
-            } catch(NumberFormatException | NoSuchElementException e){
+            } catch (NumberFormatException | NoSuchElementException e) {
                 System.out.println("Wybrana opcja nie istnieje wybierz ponownie");
             }
         }
@@ -74,10 +70,46 @@ public class LibraryControl {
     }
 
     private void printBooks() {
-        libraryUtils.printBooks(library);
+        LibraryUtils.printBooks(library);
     }
 
     private void printMagazines() {
-        libraryUtils.printMagazines(library);
+        LibraryUtils.printMagazines(library);
+    }
+
+
+    // typu wyliczeniowy Option jest wykorzystyway tylko w tej klasie i nikt nie musi wiedziec, ze istnieje (nie potrzebny osobny plik)
+    // wiec zamienilem na prywatna klasa wewnetrzna
+    public enum Option {
+
+        EXIT(0, "Wyjście z programu"),
+        ADD_BOOK(1, "Dodanie książki"),
+        ADD_MAGAZINE(2, "Dodanie magazynu/gazety"),
+        PRINT_BOOKS(3, "Wyświetlenie dostępnych książek"),
+        PRINT_MAGAZINES(4, "WYświetlenie dostępnych magazynów/gazet");
+
+        private int value;
+        private String description;
+
+        Option(int value, String desc) {
+            this.value = value;
+            this.description = desc;
+        }
+
+        @Override
+        public String toString() {
+            return value + " - " + description;
+        }
+
+        public static Option createOptionFromInt(int option) throws NoSuchElementException {
+            Option result;
+            try {
+                result = Option.values()[option];
+            } catch (ArrayIndexOutOfBoundsException ex) {
+                throw new NoSuchElementException("Brak elementu o wskazanym ID");
+            }
+            return result;
+        }
     }
 }
+
