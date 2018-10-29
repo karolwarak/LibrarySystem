@@ -52,6 +52,9 @@ public class LibraryControl {
                     case PRINT_MAGAZINES:
                         printMagazines();
                         break;
+                    case DELETE_PUBLICATION:
+                        deletePublication();
+                        break;
                     case EXIT:
                         exit();
                 }
@@ -64,12 +67,6 @@ public class LibraryControl {
         dataReader.close();
     }
 
-    private void printOptions() {
-        for (Option o : Option.values()) {
-            System.out.println(o);
-        }
-    }
-
     private void addBook() {
         Book book = dataReader.readAndCreateBook();
         library.addBook(book);
@@ -80,12 +77,23 @@ public class LibraryControl {
         library.addMagazine(magazine);
     }
 
+    private void deletePublication(){
+        String titleToRemove = dataReader.readAndDeletePublication();
+        library.removePublication(titleToRemove);
+    }
+
     private void printBooks() {
         LibraryUtils.printBooks(library);
     }
 
     private void printMagazines() {
         LibraryUtils.printMagazines(library);
+    }
+
+    private void printOptions() {
+        for (Option o : Option.values()) {
+            System.out.println(o);
+        }
     }
 
     private void exit() {
@@ -100,7 +108,8 @@ public class LibraryControl {
         ADD_BOOK(1, "Dodanie książki"),
         ADD_MAGAZINE(2, "Dodanie magazynu/gazety"),
         PRINT_BOOKS(3, "Wyświetlenie dostępnych książek"),
-        PRINT_MAGAZINES(4, "Wyświetlenie dostępnych magazynów/gazet");
+        PRINT_MAGAZINES(4, "Wyświetlenie dostępnych magazynów/gazet"),
+        DELETE_PUBLICATION(5, "Kasowanie publikacji na podstawie tytulu");
 
         private int value;
         private String description;

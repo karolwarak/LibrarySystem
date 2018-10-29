@@ -85,6 +85,12 @@ public class DataReader {
         return new Magazine(title, publisher, year, month, day, language);
     }
 
+    public String readAndDeletePublication(){
+        System.out.println("Podaj tytul ktory chcesz usunac z biblioteki: ");
+        String title = sc.nextLine();
+        return title;
+    }
+
 }
 
 

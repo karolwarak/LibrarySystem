@@ -30,8 +30,8 @@ public class Library implements Serializable {
         addPublication(magazine);
     }
 
-    public void removePublication(Publication publication) {
-        if (publication == null) {
+    public void removePublication(String title) {
+        if (title == null) {
             return;
         }
 
@@ -39,7 +39,7 @@ public class Library implements Serializable {
         int find = NOT_FOUND;
         int i = 0;
         while (i < publications.length && find == NOT_FOUND) {
-            if (publication.equals(publications[i])) {
+            if (title.equals(publications[i].getTitle())) {
                 find = i;
             } else {
                 i++;
