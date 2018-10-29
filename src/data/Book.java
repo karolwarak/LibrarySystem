@@ -3,12 +3,12 @@ package data;
 import java.util.Objects;
 
 public class Book extends Publication {
-    // Pola
+
+    private static final long serialVersionUID = -5454594695218875306L;
     private String author;
     private int pages;
     private String isbn;
 
-    // settery i gettery
     public String getIsbn() {
         return isbn;
     }
@@ -33,7 +33,6 @@ public class Book extends Publication {
         this.author = author;
     }
 
-    // Konstruktory
     public Book(String title, String publisher, int year, String author, int pages, String isbn) {
         super(title, publisher, year);
         this.setAuthor(author);

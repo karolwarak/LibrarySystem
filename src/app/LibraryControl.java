@@ -4,20 +4,30 @@ import data.Book;
 import data.Library;
 import data.Magazine;
 import utils.DataReader;
+import utils.FileManager;
 import utils.LibraryUtils;
 
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 
 public class LibraryControl {
 
-    // zmienna do komunikacji z użytkownikiem
     private DataReader dataReader;
     private Library library;
+    private FileManager fileManager;
 
     public LibraryControl() {
         dataReader = new DataReader();
-        library = new Library();
+        fileManager = new FileManager();
+
+        try {
+            library = fileManager.readLibraryFromFile();
+            System.out.println("Wczytano dane z pliku");
+        } catch (ClassNotFoundException | IOException e) {
+            library = new Library();
+            System.out.println("Utworzono nowa baze biblioteki");
+        }
     }
 
     /*
@@ -42,7 +52,8 @@ public class LibraryControl {
                     case PRINT_MAGAZINES:
                         printMagazines();
                         break;
-                    case EXIT: //nigdy nie zostanie wykonany
+                    case EXIT:
+                        exit();
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Wprowadzono niepoprawne dane, publikacji nie dodano");
@@ -77,6 +88,9 @@ public class LibraryControl {
         LibraryUtils.printMagazines(library);
     }
 
+    private void exit() {
+        fileManager.writeLibraryToFile(library);
+    }
 
     // typu wyliczeniowy Option jest wykorzystyway tylko w tej klasie i nikt nie musi wiedziec, ze istnieje (nie potrzebny osobny plik)
     // wiec zamienilem na prywatna klasa wewnetrzna
@@ -86,7 +100,7 @@ public class LibraryControl {
         ADD_BOOK(1, "Dodanie książki"),
         ADD_MAGAZINE(2, "Dodanie magazynu/gazety"),
         PRINT_BOOKS(3, "Wyświetlenie dostępnych książek"),
-        PRINT_MAGAZINES(4, "WYświetlenie dostępnych magazynów/gazet");
+        PRINT_MAGAZINES(4, "Wyświetlenie dostępnych magazynów/gazet");
 
         private int value;
         private String description;

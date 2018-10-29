@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class Magazine extends Publication {
 
+    private static final long serialVersionUID = -8112448921331155002L;
     private int month;
     private int day;
     private String language;

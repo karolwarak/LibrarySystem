@@ -1,8 +1,12 @@
 package data;
 
-public class Library {
+import java.io.Serializable;
+import java.util.Arrays;
 
-    public static final int MAX_PUBLICATIONS = 2000;
+public class Library implements Serializable {
+
+    public static final int INITIAL_CAPACITY = 1;
+    private static final long serialVersionUID = 1464414436577384323L;
     private Publication[] publications;
     private int publicationsNumber;
 
@@ -15,7 +19,7 @@ public class Library {
     }
 
     public Library() {
-        publications = new Publication[MAX_PUBLICATIONS];
+        publications = new Publication[INITIAL_CAPACITY];
     }
 
     public void addBook(Book book) {
@@ -26,17 +30,38 @@ public class Library {
         addPublication(magazine);
     }
 
-    private void addPublication(Publication publication) {
-        if (publicationsNumber == MAX_PUBLICATIONS) {
-            throw new ArrayIndexOutOfBoundsException("You reach max of publication which is = " + MAX_PUBLICATIONS);
+    public void removePublication(Publication publication) {
+        if (publication == null) {
+            return;
         }
-            publications[publicationsNumber] = publication;
-            publicationsNumber++;
+
+        final int NOT_FOUND = -1;
+        int find = NOT_FOUND;
+        int i = 0;
+        while (i < publications.length && find == NOT_FOUND) {
+            if (publication.equals(publications[i])) {
+                find = i;
+            } else {
+                i++;
+            }
+        }
+        if (find != NOT_FOUND) {
+            System.arraycopy(publications, find + 1, publications, find, publications.length - find - 1);
+            publicationsNumber--;
+        }
     }
 
-    public String toString(){
+    private void addPublication(Publication publication) {
+        if (publicationsNumber == publications.length) {
+            publications = Arrays.copyOf(publications, publications.length * 2);
+        }
+        publications[publicationsNumber] = publication;
+        publicationsNumber++;
+    }
+
+    public String toString() {
         StringBuilder builder = new StringBuilder();
-        for(int i=0; i<publicationsNumber; i++){
+        for (int i = 0; i < publicationsNumber; i++) {
             builder.append(publications[i]);
             builder.append("\n");
         }
