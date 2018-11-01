@@ -3,7 +3,7 @@ package data;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Publication implements Serializable {
+public class Publication implements Serializable, Comparable<Publication>{
 
     private static final long serialVersionUID = 2461257268920804659L;
     private int year;
@@ -82,5 +82,9 @@ public class Publication implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(year, title, publisher);
+    }
+
+    public int compareTo(Publication pub){
+        return this.title.compareTo(pub.getTitle());
     }
 }
