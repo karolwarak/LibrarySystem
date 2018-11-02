@@ -3,7 +3,7 @@ package data;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Publication implements Serializable, Comparable<Publication>{
+public abstract class Publication implements Serializable, Comparable<Publication>{
 
     private static final long serialVersionUID = 2461257268920804659L;
     private int year;
