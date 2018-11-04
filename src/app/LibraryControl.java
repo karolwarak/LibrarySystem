@@ -2,6 +2,7 @@ package app;
 
 import data.Book;
 import data.Library;
+import data.LibraryUser;
 import data.Magazine;
 import utils.DataReader;
 import utils.FileManager;
@@ -30,9 +31,6 @@ public class LibraryControl {
         }
     }
 
-    /*
-     * Główna pętla programu, która pozwala na wybór opcji i interakcję
-     */
     public void controlLoop() {
         Option option = null;
         while (option != Option.EXIT) {
@@ -55,6 +53,15 @@ public class LibraryControl {
                     case DELETE_PUBLICATION:
                         deletePublication();
                         break;
+                    case ADD_USER:
+                        addUser();
+                        break;
+                    case PRINT_USERS:
+                        printUsers();
+                        break;
+                    case DELETE_USER:
+                        deleteUser();
+                        break;
                     case EXIT:
                         exit();
                 }
@@ -67,6 +74,12 @@ public class LibraryControl {
         dataReader.close();
     }
 
+    private void printOptions() {
+        for (Option o : Option.values()) {
+            System.out.println(o);
+        }
+    }
+
     private void addBook() {
         Book book = dataReader.readAndCreateBook();
         library.addBook(book);
@@ -77,11 +90,6 @@ public class LibraryControl {
         library.addMagazine(magazine);
     }
 
-    private void deletePublication(){
-        String titleToRemove = dataReader.readAndDeletePublication();
-        library.removePublication(titleToRemove);
-    }
-
     private void printBooks() {
         LibraryUtils.printBooks(library);
     }
@@ -90,10 +98,23 @@ public class LibraryControl {
         LibraryUtils.printMagazines(library);
     }
 
-    private void printOptions() {
-        for (Option o : Option.values()) {
-            System.out.println(o);
-        }
+    private void deletePublication(){
+        String titlePublicationToRemove = dataReader.readAndDeletePublication();
+        library.removePublication(titlePublicationToRemove);
+    }
+
+    private void addUser(){
+        LibraryUser libUser = dataReader.readAndCreateLibraryUser();
+        library.addUser(libUser);
+    }
+
+    private void printUsers(){
+        LibraryUtils.printUsers(library);
+    }
+
+    private void deleteUser(){
+        String peselUserToRemove = dataReader.readAndDeleteUser();
+        library.removeUser(peselUserToRemove);
     }
 
     private void exit() {
@@ -109,7 +130,10 @@ public class LibraryControl {
         ADD_MAGAZINE(2, "Dodanie magazynu/gazety"),
         PRINT_BOOKS(3, "Wyświetlenie dostępnych książek"),
         PRINT_MAGAZINES(4, "Wyświetlenie dostępnych magazynów/gazet"),
-        DELETE_PUBLICATION(5, "Kasowanie publikacji na podstawie tytulu");
+        DELETE_PUBLICATION(5, "Kasowanie publikacji na podstawie tytulu"),
+        ADD_USER(6, "Dodanie nowego uzytkownika"),
+        PRINT_USERS(7, "Wyswietlanie wszystkich uzytkownikow"),
+        DELETE_USER(8, "Kasowanie uzytkownika na podstawie peselu");
 
         private int value;
         private String description;

@@ -36,9 +36,9 @@ public class Library implements Serializable {
         publications.put(pub.getTitle(), pub);
     }
 
-    public void removePublication(Publication pub) {
-        if (publications.containsValue(pub)) {
-            publications.remove(pub.getTitle());
+    public void removePublication(String publicationTitle) {
+        if (publications.containsKey(publicationTitle)) {
+            publications.remove(publicationTitle);
         }
     }
 
@@ -54,9 +54,9 @@ public class Library implements Serializable {
         users.put(user.getPesel(), user);
     }
 
-    public void removeUser(LibraryUser user){
-        if(users.containsValue(user)){
-            users.remove(user.getPesel());
+    public void removeUser(String pesel){
+        if(users.containsKey(pesel)){
+            users.remove(pesel);
         }
     }
 

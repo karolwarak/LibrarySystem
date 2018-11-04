@@ -103,6 +103,12 @@ public class DataReader {
 
         return new LibraryUser(firstName, lastName, pesel);
     }
+
+    public String readAndDeleteUser(){
+        System.out.println("Podaj pesel czlowiek ktorego chcesz z biblioteki: ");
+        String pesel = sc.nextLine();
+        return pesel;
+    }
 }
 
 
