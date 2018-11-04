@@ -32,6 +32,16 @@ public class Library implements Serializable {
         users = new HashMap<>();
     }
 
+    private void addPublication(Publication pub) {
+        publications.put(pub.getTitle(), pub);
+    }
+
+    public void removePublication(Publication pub) {
+        if (publications.containsValue(pub)) {
+            publications.remove(pub.getTitle());
+        }
+    }
+
     public void addBook(Book book) {
         addPublication(book);
     }
@@ -44,14 +54,10 @@ public class Library implements Serializable {
         users.put(user.getPesel(), user);
     }
 
-    public void removePublication(Publication pub) {
-        if(publications.containsValue(pub)){
-            publications.remove(pub.getTitle());
+    public void removeUser(LibraryUser user){
+        if(users.containsValue(user)){
+            users.remove(user.getPesel());
         }
-    }
-
-    private void addPublication(Publication pub) {
-        publications.put(pub.getTitle(), pub);
     }
 
     public String toString() {

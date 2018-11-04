@@ -1,6 +1,8 @@
 package utils;
 
 import data.Book;
+import data.Library;
+import data.LibraryUser;
 import data.Magazine;
 
 import java.util.InputMismatchException;
@@ -91,6 +93,16 @@ public class DataReader {
         return title;
     }
 
+    public LibraryUser readAndCreateLibraryUser(){
+        System.out.println("Imie:");
+        String firstName = sc.nextLine();
+        System.out.println("Nazwisko:");
+        String lastName = sc.nextLine();
+        System.out.println("PESEL:");
+        String pesel = sc.nextLine();
+
+        return new LibraryUser(firstName, lastName, pesel);
+    }
 }
 
 
