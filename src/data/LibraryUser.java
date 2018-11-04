@@ -2,6 +2,7 @@ package data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class LibraryUser extends User {
 
@@ -42,35 +43,17 @@ public class LibraryUser extends User {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result
-                + ((borrowedPublications == null) ? 0 : borrowedPublications.hashCode());
-        result = prime * result
-                + ((publicationHistory == null) ? 0 : publicationHistory.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        LibraryUser that = (LibraryUser) o;
+        return Objects.equals(getPublicationHistory(), that.getPublicationHistory()) &&
+                Objects.equals(getBorrowedPublications(), that.getBorrowedPublications());
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (!super.equals(obj))
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        LibraryUser other = (LibraryUser) obj;
-        if (borrowedPublications == null) {
-            if (other.borrowedPublications != null)
-                return false;
-        } else if (!borrowedPublications.equals(other.borrowedPublications))
-            return false;
-        if (publicationHistory == null) {
-            if (other.publicationHistory != null)
-                return false;
-        } else if (!publicationHistory.equals(other.publicationHistory))
-            return false;
-        return true;
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getPublicationHistory(), getBorrowedPublications());
     }
 }

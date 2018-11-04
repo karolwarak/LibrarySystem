@@ -3,24 +3,33 @@ package data;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Library implements Serializable {
 
-    public static final int INITIAL_CAPACITY = 1;
     private static final long serialVersionUID = 1464414436577384323L;
-    private Publication[] publications;
-    private int publicationsNumber;
+
+    // advantage is quick search
+    private Map<String, Publication> publications;
+
+    private Map<String, LibraryUser> users;
 
     public int getPublicationsNumber() {
-        return publicationsNumber;
+        return publications.size();
     }
 
-    public Publication[] getPublications() {
+    public Map<String, Publication> getPublications() {
         return publications;
     }
 
+    public Map<String, LibraryUser> getUsers(){
+        return users;
+    }
+
     public Library() {
-        publications = new Publication[INITIAL_CAPACITY];
+        publications = new HashMap<>();
+        users = new HashMap<>();
     }
 
     public void addBook(Book book) {
@@ -31,39 +40,24 @@ public class Library implements Serializable {
         addPublication(magazine);
     }
 
-    public void removePublication(String title) {
-        if (title == null) {
-            return;
-        }
+    public void addUser(LibraryUser user){
+        users.put(user.getPesel(), user);
+    }
 
-        final int NOT_FOUND = -1;
-        int find = NOT_FOUND;
-        int i = 0;
-        while (i < publications.length && find == NOT_FOUND) {
-            if (title.equals(publications[i].getTitle())) {
-                find = i;
-            } else {
-                i++;
-            }
-        }
-        if (find != NOT_FOUND) {
-            System.arraycopy(publications, find + 1, publications, find, publications.length - find - 1);
-            publicationsNumber--;
+    public void removePublication(Publication pub) {
+        if(publications.containsValue(pub)){
+            publications.remove(pub.getTitle());
         }
     }
 
-    private void addPublication(Publication publication) {
-        if (publicationsNumber == publications.length) {
-            publications = Arrays.copyOf(publications, publications.length * 2);
-        }
-        publications[publicationsNumber] = publication;
-        publicationsNumber++;
+    private void addPublication(Publication pub) {
+        publications.put(pub.getTitle(), pub);
     }
 
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < publicationsNumber; i++) {
-            builder.append(publications[i]);
+        for (Publication p: publications.values()) {
+            builder.append(p);
             builder.append("\n");
         }
         return builder.toString();
