@@ -2,13 +2,15 @@ package utils;
 
 import data.*;
 
-import java.util.Collection;
+import java.util.*;
 
 public class LibraryUtils {
 
 
     public static void printBooks(Library library) {
-        Collection<Publication> publications = library.getPublications().values();
+        List<Publication> publications = new ArrayList<>();
+        publications.addAll(library.getPublications().values());
+        Collections.sort(publications, new Library.AlphabeticalComparator());
         int countBooks = 0;
         for (Publication p : publications) {
             if(p instanceof Book){
@@ -23,7 +25,9 @@ public class LibraryUtils {
     }
 
     public static void printMagazines(Library library) {
-        Collection<Publication> publications = library.getPublications().values();
+        List<Publication> publications = new ArrayList<>();
+        publications.addAll(library.getPublications().values());
+        Collections.sort(publications, new Library.AlphabeticalComparator());
         int countMagazines = 0;
         for (Publication p : publications) {
             if (p instanceof Magazine) {
@@ -36,8 +40,14 @@ public class LibraryUtils {
         }
     }
 
-    public static void printUsers(Library lib){
-        Collection<LibraryUser> users = lib.getUsers().values();
+    public static void printUsers(Library library){
+        List<LibraryUser> users = new ArrayList<>();
+        users.addAll(library.getUsers().values());
+        Collections.sort(users, new Comparator<LibraryUser>(){
+            public int compare(LibraryUser o1, LibraryUser o2){
+                return o1.getLastName().compareTo(o2.getLastName());
+            }
+        });
         for(LibraryUser u : users){
             System.out.println(u);
         }
