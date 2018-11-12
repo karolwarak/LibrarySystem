@@ -6,28 +6,23 @@ import java.util.*;
 
 public class LibraryUtils {
 
-
-    public static void printBooks(Library library) {
-        long countBooks = library.getPublications().values().stream()
-                .filter(Book.class::isInstance)
-                .sorted(new Library.AlphabeticalComparator())
-                .peek(System.out::println)
-                .count();
-
-        if (countBooks == 0) {
-            System.out.println("Brak ksiazek w bibliotece");
-        }
+    public static void printBooks(Library lib){
+        printPublications(lib, Book.class);
     }
 
-    public static void printMagazines(Library library) {
-        long countMagazines = library.getPublications().values().stream()
-                .filter(Magazine.class::isInstance)
+    public static void printMagazines(Library lib){
+        printPublications(lib, Magazine.class);
+    }
+
+    public static void printPublications(Library lib, Class cl) {
+        long countPublications = lib.getPublications().values().stream()
+                .filter(cl::isInstance)
                 .sorted(new Library.AlphabeticalComparator())
                 .peek(System.out::println)
                 .count();
 
-        if (countMagazines == 0) {
-            System.out.println("Brak magazynow w bibliotece");
+        if (countPublications == 0) {
+            System.out.println("W bibliotece nie znaleziono publikacji typu: " + cl.getSimpleName());
         }
     }
 
